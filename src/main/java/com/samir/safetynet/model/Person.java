@@ -1,17 +1,19 @@
 package com.samir.safetynet.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.Date;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Person {
-    private Long id;
+    private long id;
     private String firstName;
     private String lastName;
     private FireStation fireStationId;
     private String phone;
     private String email;
-    private Date birthdate;
+    private String birthdate;
     private MedicalRecord medicalRecordId;
 }
