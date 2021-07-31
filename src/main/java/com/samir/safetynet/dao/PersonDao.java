@@ -18,6 +18,6 @@ public interface PersonDao {
 
     Person save(Person person);
 
-    void deleteInfoAPerson(String firstName, String lastName);
+    void deletePerson(String firstName, String lastName);
 
 }
