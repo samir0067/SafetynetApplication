@@ -14,9 +14,9 @@ public interface MedicalRecordDao {
 
     MedicalRecord findByFirstNameAndLastName(String firstName, String lastName);
 
-    MedicalRecord update(String firstName, String lastName);
-
     MedicalRecord save(MedicalRecord medicalRecord);
+
+    MedicalRecord update(String firstName, String lastName);
 
     void delete(long medicalRecord);
 }

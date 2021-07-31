@@ -14,9 +14,9 @@ public interface PersonDao {
 
     Person findByFirstNameAndLastName(String firstName, String lastName);
 
-    Person update(String firstName, String lastName);
-
     Person save(Person person);
+
+    Person update(String firstName, String lastName);
 
     void deletePerson(String firstName, String lastName);
 

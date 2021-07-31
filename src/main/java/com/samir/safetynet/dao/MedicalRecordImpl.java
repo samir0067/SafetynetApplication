@@ -9,6 +9,11 @@ public class MedicalRecordImpl implements MedicalRecordDao {
     public static List<MedicalRecord> medicalRecords = new ArrayList<>();
 
     @Override
+    public List<MedicalRecord> findAll() {
+        return medicalRecords;
+    }
+
+    @Override
     public MedicalRecord findById(long medicalRecord) {
         for (MedicalRecord record : medicalRecords) {
             if (record.getId() == medicalRecord) return record;
@@ -27,8 +32,9 @@ public class MedicalRecordImpl implements MedicalRecordDao {
     }
 
     @Override
-    public List<MedicalRecord> findAll() {
-        return medicalRecords;
+    public MedicalRecord save(MedicalRecord medicalRecord) {
+        medicalRecords.add(medicalRecord);
+        return medicalRecord;
     }
 
     @Override
@@ -37,12 +43,8 @@ public class MedicalRecordImpl implements MedicalRecordDao {
     }
 
     @Override
-    public MedicalRecord save(MedicalRecord medicalRecord) {
-        return null;
-    }
-
-    @Override
     public void delete(long medicalRecord) {
-
+        MedicalRecord medicalRecordId = findById(medicalRecord);
+        medicalRecords.remove(medicalRecordId);
     }
 }
