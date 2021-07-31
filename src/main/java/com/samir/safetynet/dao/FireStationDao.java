@@ -8,11 +8,11 @@ import java.util.List;
 @Repository
 public interface FireStationDao {
 
+    List<FireStation> findAll();
+
     FireStation findById(long fireStation);
 
     FireStation findByAddress(String address);
-
-    List<FireStation> findAll();
 
     FireStation save(FireStation firesStation);
 

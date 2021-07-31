@@ -8,13 +8,13 @@ import java.util.List;
 @Repository
 public interface MedicalRecordDao {
 
+    List<MedicalRecord> findAll();
+
     MedicalRecord findById(long medicalRecord);
 
     MedicalRecord findByFirstNameAndLastName(String firstName, String lastName);
 
     MedicalRecord update(String firstName, String lastName);
-
-    List<MedicalRecord> findAll();
 
     MedicalRecord save(MedicalRecord medicalRecord);
 

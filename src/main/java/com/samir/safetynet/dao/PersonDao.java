@@ -8,13 +8,13 @@ import java.util.List;
 @Repository
 public interface PersonDao {
 
+    List<Person> findAll();
+
     Person findById(long person);
 
     Person findByFirstNameAndLastName(String firstName, String lastName);
 
     Person update(String firstName, String lastName);
-
-    List<Person> findAll();
 
     Person save(Person person);
 
