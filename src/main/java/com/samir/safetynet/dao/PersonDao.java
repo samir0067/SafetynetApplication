@@ -16,8 +16,8 @@ public interface PersonDao {
 
     Person save(Person person);
 
-    Person update(String firstName, String lastName);
+    Person update(Person person);
 
-    void deletePerson(String firstName, String lastName);
+    void deletePerson(long person);
 
 }

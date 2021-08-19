@@ -38,13 +38,13 @@ public class PersonImpl implements PersonDao {
     }
 
     @Override
-    public Person update(String firstName, String lastName) {
+    public Person update(Person person) {
         return null;
     }
 
     @Override
-    public void deletePerson(String firstName, String lastName) {
-        Person person = findByFirstNameAndLastName(firstName, lastName);
+    public void deletePerson(long personId) {
+        Person person = findById(personId);
         personList.remove(person);
     }
 }

@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FireStation {
-    private long id;
-    private Address address;
+public class Address {
+    private String address;
+    private String zip;
+    private String city;
+    private long fireStationId;
 }

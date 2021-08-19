@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Person {
 
-    private String address;
-    private String city;
     private String email;
     private String firstName;
     private String lastName;
+    private String birthdate;
     private String phone;
-    private String zip;
+    private Address address;
+    private MedicalRecord medicalRecord;
 }
