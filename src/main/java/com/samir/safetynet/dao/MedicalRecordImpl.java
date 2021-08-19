@@ -38,7 +38,7 @@ public class MedicalRecordImpl implements MedicalRecordDao {
     }
 
     @Override
-    public MedicalRecord update(String firstName, String lastName) {
+    public MedicalRecord update(MedicalRecord medicalRecord) {
         return null;
     }
 
