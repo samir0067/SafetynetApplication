@@ -6,7 +6,6 @@ import com.samir.safetynet.entity.MedicalRecordEntity;
 import com.samir.safetynet.entity.PersonEntity;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
@@ -16,27 +15,26 @@ import java.util.List;
 
 @Slf4j
 @Data
-public class SafetyGrossRepository {
+public class JsonSafetyRepository {
 
     private List<PersonEntity> persons;
     private List<FireStationEntity> firestations;
     private List<MedicalRecordEntity> medicalrecords;
 
-    private static SafetyGrossRepository safetyGrossRepository;
+    private static JsonSafetyRepository jsonSafetyRepository;
 
     public static void init() throws IOException {
-        if (safetyGrossRepository == null) {
+        if (jsonSafetyRepository == null) {
             File file = ResourceUtils.getFile("classpath:data.json");
             String content = Files.readString(file.toPath());
-            safetyGrossRepository = JsonIterator.deserialize(content, SafetyGrossRepository.class);
+            jsonSafetyRepository = JsonIterator.deserialize(content, JsonSafetyRepository.class);
 
-            SafetyRepository.setSafetyRepository(RepositoryMapper.mapTo(safetyGrossRepository));
-
+            SafetyRepository.setSafetyRepository(RepositoryMapper.mapTo(jsonSafetyRepository));
         }
     }
 
-    public static SafetyGrossRepository getSafetyGrossRepository() {
-        return safetyGrossRepository;
+    public static JsonSafetyRepository getJsonSafetyRepository() {
+        return jsonSafetyRepository;
     }
 }
 

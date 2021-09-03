@@ -1,6 +1,6 @@
 package com.samir.safetynet;
 
-import com.samir.safetynet.repository.SafetyGrossRepository;
+import com.samir.safetynet.repository.JsonSafetyRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,6 +11,6 @@ public class SafetynetApplication{
 
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(SafetynetApplication.class, args);
-		SafetyGrossRepository.init();
+		JsonSafetyRepository.init();
 	}
 }
