@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class MedicalRecord {
+public class MedicalRecordEntity {
 
     private String firstName;
     private String lastName;

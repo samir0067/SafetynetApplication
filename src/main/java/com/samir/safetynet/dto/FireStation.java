@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class FireStation {
-    private long id;
+    private int id;
     private Address address;
 }
