@@ -2,7 +2,6 @@ package com.samir.safetynet.repository;
 
 
 import com.samir.safetynet.dto.FireStation;
-import com.samir.safetynet.dto.MedicalRecord;
 import com.samir.safetynet.dto.Person;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +14,14 @@ public class SafetyRepository {
 
     private List<Person> persons;
     private List<FireStation> firestations;
-    private List<MedicalRecord> medicalrecords;
+    private static SafetyRepository safetyRepository;
+
+    public static SafetyRepository getSafetyRepository() {
+        return safetyRepository;
+    }
+
+    public static void setSafetyRepository(SafetyRepository safetyRepository) {
+        SafetyRepository.safetyRepository = safetyRepository;
+    }
 }
 

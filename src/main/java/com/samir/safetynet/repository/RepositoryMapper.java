@@ -19,13 +19,14 @@ public class RepositoryMapper {
             FireStation fireStation = new FireStation();
             Address address = new Address();
             address.setStreet(element.getAddress());
+            address.setFireStationId(Integer.parseInt(element.getStation()));
             fireStation.setAddress(address);
             fireStation.setId(Integer.parseInt(element.getStation()));
             fireStations.add(fireStation);
 
         });
-
-        return null;
+        safetyRepository.setFirestations(fireStations);
+        return safetyRepository;
     }
 }
 
