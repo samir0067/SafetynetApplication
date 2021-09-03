@@ -12,5 +12,5 @@ public class Address {
     private String address;
     private String zip;
     private String city;
-    private long fireStationId;
+    private int fireStationId;
 }
