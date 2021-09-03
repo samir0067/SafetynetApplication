@@ -1,19 +1,16 @@
 package com.samir.safetynet;
 
-import com.samir.safetynet.repository.SafetyRepository;
-import org.springframework.boot.CommandLineRunner;
+import com.samir.safetynet.repository.SafetyBareRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.IOException;
+
 @SpringBootApplication
-public class SafetynetApplication /*implements CommandLineRunner */{
+public class SafetynetApplication{
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		SpringApplication.run(SafetynetApplication.class, args);
+		SafetyBareRepository.init();
 	}
-
-//	@Override
-//	public void run(String... args) throws Exception {
-//		SafetyRepository.init();
-//	}
 }
