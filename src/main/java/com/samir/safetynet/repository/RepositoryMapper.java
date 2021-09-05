@@ -44,22 +44,22 @@ public class RepositoryMapper {
 
         List<Person> persons = new ArrayList<>();
         int id = 0;
-        personEntities.forEach(element -> {
+        for (PersonEntity personEntity : personEntities) {
             MedicalRecordEntity medicalRecordEntity =
-                    medicalRecordEntityByFirstNameAndLastName.get(element.getFirstName() + element.getLastName());
+                    medicalRecordEntityByFirstNameAndLastName.get(personEntity.getFirstName() + personEntity.getLastName());
             Person person = new Person();
-            person.setId(id);
-            person.setFirstName(element.getFirstName());
-            person.setLastName(element.getLastName());
-            person.setEmail(element.getEmail());
-            person.setPhone(element.getPhone());
+            person.setId(id++);
+            person.setFirstName(personEntity.getFirstName());
+            person.setLastName(personEntity.getLastName());
+            person.setEmail(personEntity.getEmail());
+            person.setPhone(personEntity.getPhone());
             person.setBirthdate(medicalRecordEntity.getBirthdate());
 
             Address address = new Address();
-            address.setStreet(element.getAddress());
-            address.setCity(element.getCity());
-            address.setZip(element.getZip());
-            address.setFireStationIds(getListStationForAnAddress(fireStationEntities, element.getAddress()));
+            address.setStreet(personEntity.getAddress());
+            address.setCity(personEntity.getCity());
+            address.setZip(personEntity.getZip());
+            address.setFireStationIds(getListStationForAnAddress(fireStationEntities, personEntity.getAddress()));
             person.setAddress(address);
 
             MedicalRecord medicalRecord = new MedicalRecord();
@@ -67,7 +67,7 @@ public class RepositoryMapper {
             medicalRecord.setAllergies(medicalRecordEntity.getAllergies());
             person.setMedicalRecord(medicalRecord);
             persons.add(person);
-        });
+        }
         safetyRepository.setPersons(persons);
 
         return safetyRepository;
