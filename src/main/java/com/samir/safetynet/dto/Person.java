@@ -10,6 +10,7 @@ public class Person {
     private String lastName;
     private String birthdate;
     private String phone;
+    private int age;
     private Address address;
     private MedicalRecord medicalRecord;
 }
