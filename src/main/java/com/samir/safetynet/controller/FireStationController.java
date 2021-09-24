@@ -16,9 +16,6 @@ import java.util.stream.Collectors;
 public class FireStationController {
 
     @Autowired
-    private FireStationDao fireStationDao;
-
-    @Autowired
     private PersonDao personDao;
 
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -48,7 +45,7 @@ public class FireStationController {
     public List<String> getPhoneAlert(@RequestParam Integer firestation) {
         return personDao.getPersons().stream()
                 .filter(element -> element.getAddress().getFireStationIds().contains(firestation))
-                .map(element -> element.getPhone()).collect(Collectors.toList());
+                .map(Person::getPhone).collect(Collectors.toList());
     }
 
     @GetMapping("/fire")

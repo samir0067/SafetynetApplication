@@ -12,5 +12,4 @@ public class FireStationDao {
     public List<FireStation> getFirStations() {
         return SafetyRepository.getSafetyRepository().getFirestations();
     }
-
 }
