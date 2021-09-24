@@ -25,14 +25,6 @@ public class PersonDao {
 
     }
 
-    public void deletePersonByFirstNameAndLastName(String firstName, String lastName) {
-        SafetyRepository.getSafetyRepository()
-                .getPersons()
-                .removeIf(element -> Objects.equals(element.getFirstName(),
-                        firstName) && Objects.equals(element.getLastName(),
-                        lastName));
-    }
-
     public Person putPerson(Person person) {
         Person foundPerson = SafetyRepository.getSafetyRepository().getPersons()
                 .stream().filter(element -> element.getId() == person.getId())
@@ -54,5 +46,13 @@ public class PersonDao {
                 .removeIf(element -> element.getId() == foundPerson.getId());
         SafetyRepository.getSafetyRepository().getPersons().add(foundPerson);
         return foundPerson;
+    }
+
+    public void deletePersonByFirstNameAndLastName(String firstName, String lastName) {
+        SafetyRepository.getSafetyRepository()
+                .getPersons()
+                .removeIf(element -> Objects.equals(element.getFirstName(),
+                        firstName) && Objects.equals(element.getLastName(),
+                        lastName));
     }
 }
