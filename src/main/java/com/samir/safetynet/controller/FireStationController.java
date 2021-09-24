@@ -76,30 +76,23 @@ public class FireStationController {
 
     @GetMapping("/personInfo")
     public List<Person> getPersonInfo(@RequestParam String firstName, @RequestParam String lastName) {
-        return personDao.getPersons().stream()
+        LocalDate currentDate = LocalDate.now();
+        List<Person> persons = personDao.getPersons().stream()
                 .filter(element -> (firstName.equals(element.getFirstName()) && lastName.equals(element.getLastName())))
                 .collect(Collectors.toList());
+        persons.forEach(element -> element.setAge(Period.between(LocalDate.parse(element.getBirthdate(), dtf), currentDate).getYears()));
+        return persons;
     }
 
     @GetMapping("/communityEmail")
     public List<String> getCommunityEmail(@RequestParam String city) {
         return personDao.getPersons().stream()
                 .filter(element -> city.equals(element.getAddress().getCity()))
-                .map(element -> element.getEmail()).collect(Collectors.toList());
+                .map(Person::getEmail).collect(Collectors.toList());
     }
 
-    @PostMapping("/person")
-    public Person addPerson(@RequestBody Person person) {
-        return personDao.addPerson(person);
-    }
-
-    @DeleteMapping("/person")
-    public void deletePerson(@RequestBody Person person) {
-        personDao.deletePerson(person);
-    }
-
-    @PutMapping("/person")
-    public Person putPerson(@RequestBody Person person) {
-        return personDao.putPerson(person);
+    @DeleteMapping("/medicalRecord/:id")
+    public Person deleteCommunityEmail(@PathVariable String id) {
+        return personDao.resetMedicalRecord(id);
     }
 }

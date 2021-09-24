@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 public class RepositoryMapper {
 
-    private static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
 
     public static SafetyRepository mapTo(JsonSafetyRepository jsonSafetyRepository) {
         SafetyRepository safetyRepository = new SafetyRepository();
@@ -60,7 +60,6 @@ public class RepositoryMapper {
             person.setEmail(personEntity.getEmail());
             person.setPhone(personEntity.getPhone());
             person.setBirthdate(medicalRecordEntity.getBirthdate());
-            person.setAge(Period.between(LocalDate.parse(person.getBirthdate(), dtf), currentDate).getYears());
 
             Address address = new Address();
             address.setStreet(personEntity.getAddress());
