@@ -18,12 +18,7 @@ public class PersonDao {
 
     public Person addPerson(Person person) {
         List<Person> persons = SafetyRepository.getSafetyRepository().getPersons();
-        Person maxElement = persons.stream().max(new Comparator<Person>() {
-            @Override
-            public int compare(Person o1, Person o2) {
-                return o1.getId() - o2.getId();
-            }
-        }).get();
+        Person maxElement = persons.stream().max(Comparator.comparingInt(Person::getId)).orElseThrow();
         person.setId(maxElement.getId() + 1);
         SafetyRepository.getSafetyRepository().getPersons().add(person);
         return person;
@@ -31,16 +26,17 @@ public class PersonDao {
     }
 
     public void deletePersonByFirstNameAndLastName(String firstName, String lastName) {
-        SafetyRepository.getSafetyRepository().getPersons()
-                .removeIf(element ->
-                        Objects.equals(element.getFirstName(), firstName) &&
-                                Objects.equals(element.getLastName(), lastName));
+        SafetyRepository.getSafetyRepository()
+                .getPersons()
+                .removeIf(element -> Objects.equals(element.getFirstName(),
+                        firstName) && Objects.equals(element.getLastName(),
+                        lastName));
     }
 
     public Person putPerson(Person person) {
         Person foundPerson = SafetyRepository.getSafetyRepository().getPersons()
                 .stream().filter(element -> element.getId() == person.getId())
-                .findFirst().get();
+                .findFirst().orElseThrow();
         person.setId(foundPerson.getId());
         SafetyRepository.getSafetyRepository().getPersons()
                 .removeIf(element -> element.getId() == person.getId());
@@ -50,15 +46,13 @@ public class PersonDao {
 
     public Person resetMedicalRecord(String id) {
         Person foundPerson = SafetyRepository.getSafetyRepository().getPersons()
-                .stream().filter(
-                        element -> (element.getFirstName().concat(element.getLastName())).equals(id)
-                )
-                .findFirst().get();
+                .stream()
+                .filter(element -> (element.getFirstName().concat(element.getLastName())).equals(id))
+                .findFirst().orElseThrow();
         foundPerson.setMedicalRecord(new MedicalRecord());
         SafetyRepository.getSafetyRepository().getPersons()
                 .removeIf(element -> element.getId() == foundPerson.getId());
         SafetyRepository.getSafetyRepository().getPersons().add(foundPerson);
         return foundPerson;
     }
-
 }
