@@ -1,6 +1,5 @@
 package com.samir.safetynet.controller;
 
-import com.samir.safetynet.dao.FireStationDao;
 import com.samir.safetynet.dao.PersonDao;
 import com.samir.safetynet.dto.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,23 +21,36 @@ public class FireStationController {
 
     @GetMapping("/firestation")
     public List<Person> getFireStations(@RequestParam(required = false) Integer stationNumber) {
-        return (stationNumber == null) ?
-                personDao.getPersons() :
-                personDao.getPersons().stream()
-                        .filter(element -> element.getAddress().getFireStationIds().contains(stationNumber))
-                        .collect(Collectors.toList());
+        LocalDate currentDate = LocalDate.now();
+        if (stationNumber == null) {
+            return personDao.getPersons();
+        } else {
+            int countAdults = 0;
+            int countChildren = 0;
+            List<Person> persons = personDao.getPersons()
+                    .stream()
+                    .filter(element -> element.getAddress().getFireStationIds().contains(stationNumber))
+                    .collect(Collectors.toList());
+            persons.forEach(element -> element.setAge(Period.between(LocalDate.parse(element.getBirthdate(), dtf), currentDate).getYears()));
+            System.out.println(persons.size());
+            return persons;
+        }
     }
 
     @GetMapping("/childAlert")
     public List<Person> getChildAlert(@RequestParam String address) {
         LocalDate currentDate = LocalDate.now();
-        return personDao.getPersons().stream()
+        List<Person> persons = personDao.getPersons()
+                .stream()
                 .filter(element -> {
                     String birthdate = element.getBirthdate();
                     int years = Period.between(LocalDate.parse(birthdate, dtf), currentDate).getYears();
                     return (element.getAddress().getStreet().equals(address) && (years < 18));
                 })
                 .collect(Collectors.toList());
+        persons.forEach(element -> element.setAge(Period.between(LocalDate.parse(element.getBirthdate(), dtf), currentDate).getYears()));
+        System.out.println(persons.size());
+        return persons;
     }
 
     @GetMapping("/phoneAlert")
@@ -50,14 +62,20 @@ public class FireStationController {
 
     @GetMapping("/fire")
     public List<Person> getFireStationByAddress(@RequestParam String address) {
-        return personDao.getPersons().stream()
+        LocalDate currentDate = LocalDate.now();
+        List<Person> persons = personDao.getPersons()
+                .stream()
                 .filter(element -> address.equals(element.getAddress().getStreet()))
                 .collect(Collectors.toList());
+        persons.forEach(element -> element.setAge(Period.between(LocalDate.parse(element.getBirthdate(), dtf), currentDate).getYears()));
+        System.out.println(persons.size());
+        return persons;
     }
 
     @GetMapping("/flood/stations")
     public List<Person> getFloodStations(@RequestParam List<Integer> stations) {
-        return personDao.getPersons().stream()
+        LocalDate currentDate = LocalDate.now();
+        List<Person> persons = personDao.getPersons().stream()
                 .filter(element -> {
                     boolean found = false;
                     for (Integer station : stations) {
@@ -69,12 +87,16 @@ public class FireStationController {
                     return found;
                 })
                 .collect(Collectors.toList());
+        persons.forEach(element -> element.setAge(Period.between(LocalDate.parse(element.getBirthdate(), dtf), currentDate).getYears()));
+        System.out.println(persons.size());
+        return persons;
     }
 
     @GetMapping("/personInfo")
     public List<Person> getPersonInfo(@RequestParam String firstName, @RequestParam String lastName) {
         LocalDate currentDate = LocalDate.now();
-        List<Person> persons = personDao.getPersons().stream()
+        List<Person> persons = personDao.getPersons()
+                .stream()
                 .filter(element -> (firstName.equals(element.getFirstName()) && lastName.equals(element.getLastName())))
                 .collect(Collectors.toList());
         persons.forEach(element -> element.setAge(Period.between(LocalDate.parse(element.getBirthdate(), dtf), currentDate).getYears()));
