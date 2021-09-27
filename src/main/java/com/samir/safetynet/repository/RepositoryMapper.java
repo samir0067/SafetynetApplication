@@ -8,6 +8,9 @@ import com.samir.safetynet.entity.FireStationEntity;
 import com.samir.safetynet.entity.MedicalRecordEntity;
 import com.samir.safetynet.entity.PersonEntity;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +18,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class RepositoryMapper {
+
+
 
     public static SafetyRepository mapTo(JsonSafetyRepository jsonSafetyRepository) {
         SafetyRepository safetyRepository = new SafetyRepository();
@@ -44,6 +49,7 @@ public class RepositoryMapper {
 
         List<Person> persons = new ArrayList<>();
         int id = 0;
+        LocalDate currentDate = LocalDate.now();
         for (PersonEntity personEntity : personEntities) {
             MedicalRecordEntity medicalRecordEntity =
                     medicalRecordEntityByFirstNameAndLastName.get(personEntity.getFirstName() + personEntity.getLastName());
@@ -66,6 +72,7 @@ public class RepositoryMapper {
             medicalRecord.setMedications(medicalRecordEntity.getMedications());
             medicalRecord.setAllergies(medicalRecordEntity.getAllergies());
             person.setMedicalRecord(medicalRecord);
+
             persons.add(person);
         }
         safetyRepository.setPersons(persons);
