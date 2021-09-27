@@ -7,9 +7,8 @@ import java.util.List;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Address {
-    private String street;
-    private String zip;
-    private String city;
-    private List<Integer> fireStationIds;
+public class PersonsWithStatistics {
+    private int countChildren;
+    private int countAdults;
+    private List<Person> persons;
 }

@@ -24,14 +24,14 @@ public class PersonController {
         return personDao.addPerson(person);
     }
 
-    @DeleteMapping
-    public void deletePersonByFirstNameAndLastName(@RequestParam String firstName, @RequestParam String lastName) {
-        personDao.deletePersonByFirstNameAndLastName(firstName, lastName);
-    }
-
     @PutMapping
     public Person putPerson(@RequestBody Person person) {
         return personDao.putPerson(person);
+    }
+
+    @DeleteMapping
+    public void deletePersonByFirstNameAndLastName(@RequestParam String firstName, @RequestParam String lastName) {
+        personDao.deletePersonByFirstNameAndLastName(firstName, lastName);
     }
 }
 

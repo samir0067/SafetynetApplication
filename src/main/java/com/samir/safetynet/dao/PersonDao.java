@@ -1,6 +1,5 @@
 package com.samir.safetynet.dao;
 
-import com.samir.safetynet.dto.MedicalRecord;
 import com.samir.safetynet.dto.Person;
 import com.samir.safetynet.repository.SafetyRepository;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,8 @@ public class PersonDao {
     public Person putPerson(Person person) {
         Person foundPerson = SafetyRepository.getSafetyRepository().getPersons()
                 .stream().filter(element -> element.getId() == person.getId())
-                .findFirst().orElseThrow();
+                .findFirst()
+                .orElseThrow();
         person.setId(foundPerson.getId());
         SafetyRepository.getSafetyRepository().getPersons()
                 .removeIf(element -> element.getId() == person.getId());
@@ -36,23 +36,10 @@ public class PersonDao {
         return person;
     }
 
-    public Person resetMedicalRecord(String id) {
-        Person foundPerson = SafetyRepository.getSafetyRepository().getPersons()
-                .stream()
-                .filter(element -> (element.getFirstName().concat(element.getLastName())).equals(id))
-                .findFirst().orElseThrow();
-        foundPerson.setMedicalRecord(new MedicalRecord());
-        SafetyRepository.getSafetyRepository().getPersons()
-                .removeIf(element -> element.getId() == foundPerson.getId());
-        SafetyRepository.getSafetyRepository().getPersons().add(foundPerson);
-        return foundPerson;
-    }
-
     public void deletePersonByFirstNameAndLastName(String firstName, String lastName) {
         SafetyRepository.getSafetyRepository()
                 .getPersons()
-                .removeIf(element -> Objects.equals(element.getFirstName(),
-                        firstName) && Objects.equals(element.getLastName(),
-                        lastName));
+                .removeIf(element -> Objects.equals(element.getFirstName(), firstName)
+                        && Objects.equals(element.getLastName(), lastName));
     }
 }
