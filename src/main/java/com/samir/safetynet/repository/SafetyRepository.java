@@ -12,16 +12,16 @@ import java.util.List;
 @Data
 public class SafetyRepository {
 
-    private List<Person> persons;
-    private List<FireStation> firestations;
-    private static SafetyRepository safetyRepository;
+  private List<Person> persons;
+  private List<FireStation> firestations;
+  private static SafetyRepository safetyRepository;
 
-    public static SafetyRepository getSafetyRepository() {
-        return safetyRepository;
-    }
+  public static SafetyRepository getSafetyRepository() {
+    return safetyRepository;
+  }
 
-    public static void setSafetyRepository(SafetyRepository safetyRepository) {
-        SafetyRepository.safetyRepository = safetyRepository;
-    }
+  public static void setSafetyRepository(SafetyRepository safetyRepository) {
+    SafetyRepository.safetyRepository = safetyRepository;
+  }
 }
 

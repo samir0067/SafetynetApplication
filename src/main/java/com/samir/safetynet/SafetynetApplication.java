@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.IOException;
 
 @SpringBootApplication
-public class SafetynetApplication{
+public class SafetynetApplication {
 
-	public static void main(String[] args) throws IOException {
-		SpringApplication.run(SafetynetApplication.class, args);
-		JsonSafetyRepository.init();
-	}
+  public static void main(String[] args) throws IOException {
+    SpringApplication.run(SafetynetApplication.class, args);
+    JsonSafetyRepository.init();
+  }
 }

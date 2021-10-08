@@ -17,24 +17,24 @@ import java.util.List;
 @Data
 public class JsonSafetyRepository {
 
-    private List<PersonEntity> persons;
-    private List<FireStationEntity> firestations;
-    private List<MedicalRecordEntity> medicalrecords;
+  private List<PersonEntity> persons;
+  private List<FireStationEntity> firestations;
+  private List<MedicalRecordEntity> medicalrecords;
 
-    private static JsonSafetyRepository jsonSafetyRepository;
+  private static JsonSafetyRepository jsonSafetyRepository;
 
-    public static void init() throws IOException {
-        if (jsonSafetyRepository == null) {
-            File file = ResourceUtils.getFile("classpath:data.json");
-            String content = Files.readString(file.toPath());
-            jsonSafetyRepository = JsonIterator.deserialize(content, JsonSafetyRepository.class);
+  public static void init() throws IOException {
+    if (jsonSafetyRepository == null) {
+      File file = ResourceUtils.getFile("classpath:data.json");
+      String content = Files.readString(file.toPath());
+      jsonSafetyRepository = JsonIterator.deserialize(content, JsonSafetyRepository.class);
 
-            SafetyRepository.setSafetyRepository(RepositoryMapper.mapTo(jsonSafetyRepository));
-        }
+      SafetyRepository.setSafetyRepository(RepositoryMapper.mapTo(jsonSafetyRepository));
     }
+  }
 
-    public static JsonSafetyRepository getJsonSafetyRepository() {
-        return jsonSafetyRepository;
-    }
+  public static JsonSafetyRepository getJsonSafetyRepository() {
+    return jsonSafetyRepository;
+  }
 }
 
