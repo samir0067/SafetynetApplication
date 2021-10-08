@@ -38,6 +38,12 @@ public class MedicalRecordDao {
         .filter(element -> Objects.equals(element.getFirstName(), medicalRecordWithPerson.getPerson().getFirstName())
             && Objects.equals(element.getLastName(), medicalRecordWithPerson.getPerson().getLastName()))
         .findFirst();
+    if (optionalPerson.isPresent()) {
+      Person person = optionalPerson.get();
+      person.setMedicalRecord(medicalRecordWithPerson.getMedicalRecord());
+      personDao.putPerson(person);
+      return person.getMedicalRecord();
+    }
     return null;
   }
 

@@ -41,7 +41,7 @@ public class MedicalRecordController {
 
   @DeleteMapping("/{id}")
   public Person deleteMedicalRecord(@PathVariable String id) {
-    return null;
+    return medicalRecordDao.deleteMedicalRecordByFirstNameAndLastName(id);
   }
 }
 
