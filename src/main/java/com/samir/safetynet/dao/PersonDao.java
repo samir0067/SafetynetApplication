@@ -17,31 +17,41 @@ public class PersonDao {
 
   public Person addPerson(Person person) {
     List<Person> persons = SafetyRepository.getSafetyRepository().getPersons();
-    Person maxElement = persons.stream().max(Comparator.comparingInt(Person::getId)).orElseThrow();
+    Person maxElement = persons
+        .stream()
+        .max(Comparator.comparingInt(Person::getId))
+        .orElseThrow();
     person.setId(maxElement.getId() + 1);
-    SafetyRepository.getSafetyRepository().getPersons().add(person);
+    SafetyRepository
+        .getSafetyRepository()
+        .getPersons()
+        .add(person);
     return person;
-
   }
 
   public Person putPerson(Person person) {
     Person foundPerson = SafetyRepository.getSafetyRepository().getPersons()
-        .stream().filter(element -> element.getId() == person.getId())
+        .stream()
+        .filter(element -> element.getId() == person.getId())
         .findFirst()
         .orElseThrow();
     person.setId(foundPerson.getId());
-    SafetyRepository.getSafetyRepository().getPersons()
+    SafetyRepository
+        .getSafetyRepository()
+        .getPersons()
         .removeIf(element -> element.getId() == person.getId());
-    SafetyRepository.getSafetyRepository().getPersons().add(person);
+    SafetyRepository
+        .getSafetyRepository()
+        .getPersons()
+        .add(person);
     return person;
   }
 
   public void deletePersonByFirstNameAndLastName(String firstName, String lastName) {
-    SafetyRepository.getSafetyRepository()
+    SafetyRepository
+        .getSafetyRepository()
         .getPersons()
         .removeIf(element -> Objects.equals(element.getFirstName(), firstName)
             && Objects.equals(element.getLastName(), lastName));
   }
-
-
 }
