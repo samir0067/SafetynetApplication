@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class FireStationEntity {
 
-    private String address;
-    private String station;
+  private String address;
+  private String station;
 
 }

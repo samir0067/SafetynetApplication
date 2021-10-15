@@ -3,9 +3,12 @@ package com.samir.safetynet.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FireStation {
-  private int id;
-  private Address address;
+public class PersonsWithStatistics {
+  private int countChildren;
+  private int countAdults;
+  private List<Person> persons;
 }

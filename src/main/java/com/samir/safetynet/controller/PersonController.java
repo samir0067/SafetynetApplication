@@ -11,27 +11,27 @@ import java.util.List;
 @RequestMapping("/person")
 public class PersonController {
 
-    @Autowired
-    private PersonDao personDao;
+  @Autowired
+  private PersonDao personDao;
 
-    @GetMapping
-    public List<Person> getPersons() {
-        return personDao.getPersons();
-    }
+  @GetMapping
+  public List<Person> getPersons() {
+    return personDao.getPersons();
+  }
 
-    @PostMapping
-    public Person addPerson(@RequestBody Person person) {
-        return personDao.addPerson(person);
-    }
+  @PostMapping
+  public Person addPerson(@RequestBody Person person) {
+    return personDao.addPerson(person);
+  }
 
-    @DeleteMapping
-    public void deletePersonByFirstNameAndLastName(@RequestParam String firstName, @RequestParam String lastName) {
-        personDao.deletePersonByFirstNameAndLastName(firstName, lastName);
-    }
+  @PutMapping
+  public Person putPerson(@RequestBody Person person) {
+    return personDao.putPerson(person);
+  }
 
-    @PutMapping
-    public Person putPerson(@RequestBody Person person) {
-        return personDao.putPerson(person);
-    }
+  @DeleteMapping
+  public void deletePersonByFirstNameAndLastName(@RequestParam String firstName, @RequestParam String lastName) {
+    personDao.deletePersonByFirstNameAndLastName(firstName, lastName);
+  }
 }
 
