@@ -1,9 +1,13 @@
 package com.samir.safetynet.controller;
 
+import com.samir.safetynet.dao.FireStationDao;
 import com.samir.safetynet.dao.PersonDao;
+import com.samir.safetynet.dto.FireStation;
 import com.samir.safetynet.dto.Person;
 import com.samir.safetynet.dto.PersonsWithStatistics;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,16 +25,20 @@ public class FireStationController {
   @Autowired
   private PersonDao personDao;
 
+  @Autowired
+  private FireStationDao fireStationDao;
+
   private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
   @GetMapping("/firestation")
-  public PersonsWithStatistics getFireStations(@RequestParam(required = false) Integer stationNumber) {
+  public ResponseEntity<?> getFireStations(@RequestParam(required = false) Integer stationNumber) {
     LocalDate currentDate = LocalDate.now();
     List<Person> persons;
     AtomicInteger countAdults = new AtomicInteger();
     AtomicInteger countChildren = new AtomicInteger();
     if (stationNumber == null) {
-      persons = personDao.getPersons();
+      List<FireStation> fireStations = fireStationDao.getFirStations();
+      return new ResponseEntity<>(fireStations, HttpStatus.OK);
     } else {
       persons = personDao.getPersons()
           .stream()
@@ -50,6 +58,6 @@ public class FireStationController {
     personsWithStatistics.setPersons(persons);
     personsWithStatistics.setCountChildren(countChildren.get());
     personsWithStatistics.setCountAdults(countAdults.get());
-    return personsWithStatistics;
+    return new ResponseEntity<>(personsWithStatistics, HttpStatus.OK);
   }
 }

@@ -6,6 +6,7 @@ import com.samir.safetynet.dto.Person;
 import com.samir.safetynet.repository.SafetyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -40,7 +41,24 @@ public class MedicalRecordDao {
         .findFirst();
     if (optionalPerson.isPresent()) {
       Person person = optionalPerson.get();
-      person.setMedicalRecord(medicalRecordWithPerson.getMedicalRecord());
+      MedicalRecord medicalRecord = person.getMedicalRecord();
+      if (!CollectionUtils.isEmpty(medicalRecord.getMedications())
+          && (medicalRecordWithPerson.getMedicalRecord() != null)
+          && (!CollectionUtils.isEmpty(medicalRecordWithPerson.getMedicalRecord().getMedications()))) {
+        medicalRecordWithPerson.getMedicalRecord().getMedications().removeAll(medicalRecord.getMedications());
+        medicalRecord.getMedications().addAll(medicalRecordWithPerson.getMedicalRecord().getMedications());
+      } else {
+        medicalRecord.setMedications(medicalRecordWithPerson.getMedicalRecord().getMedications());
+      }
+      if (!CollectionUtils.isEmpty(medicalRecord.getAllergies())
+          && (medicalRecordWithPerson.getMedicalRecord() != null)
+          && (!CollectionUtils.isEmpty(medicalRecordWithPerson.getMedicalRecord().getAllergies()))) {
+        medicalRecordWithPerson.getMedicalRecord().getAllergies().removeAll(medicalRecord.getAllergies());
+        medicalRecord.getAllergies().addAll(medicalRecordWithPerson.getMedicalRecord().getAllergies());
+      } else {
+        medicalRecord.setAllergies(medicalRecordWithPerson.getMedicalRecord().getAllergies());
+      }
+      person.setMedicalRecord(medicalRecord);
       personDao.putPerson(person);
       return person.getMedicalRecord();
     }
